@@ -22,7 +22,7 @@ function Home () {
         <Button onClick={()=>copy('command2')} style={{marginBottom: '0.5rem'}}  variant="success">Click to Copy</Button>
         <p>Now you're ready to head over to <a href="/editor">the tool page</a>!</p>
         <h2>Saving your guide</h2>
-        <p>Type annotation_save followed by the file name you want to save your guide as in the terminal:</p>
+        <p>In the terminal, type annotation_save followed by the file name you want to save your guide:</p>
         <textarea style={{width: '100%', height: 'auto'}} value="annotation_save [file name]"></textarea>
         <p>Then, visit your annotations directory in <b>C:\Program Files (x86)\Steam\steam apps\common\Counter-Strike Global Offensive\game\csgo\annotations</b> to retreive your file</p>
         <h4>Additional</h4>

@@ -2,6 +2,9 @@ import React, { useEffect, useState, useContext} from "react"
 import {Col, Row, Container, Button, Card, Form} from "react-bootstrap"
 
 import Annotation from './Annotation'
+import QuickCreatePanel from "./QuickCreatePanel";
+import TextPanel from "./TextPanel";
+import PositionPanel from "./PositionPanel";
 
 export default function Editor(props) {
 
@@ -9,26 +12,9 @@ export default function Editor(props) {
 
     function panel() {
         switch(active){
-            case 'Quick Create': return <>
-                <Form.Label htmlFor="inputPassword5">Label</Form.Label>
-                <Form.Control id="inputPassword5"/>
-                <Form.Text id="passwordHelpBlock" muted>
-                    Your password must be 8-20 characters long, contain letters and numbers,
-                    and must not contain spaces, special characters, or emoji.
-                </Form.Text>
-                <Form.Control as="textarea" rows={3} />
-            </>
-            case 'Position': return <>
-            </>
-            case 'Text': return <>
-                <label>Title</label>
-                <input type="text" />
-                <label>Body</label>
-                <input type="text" />
-                <label>Float / Surface</label>
-                <Form.Check type="switch" />
-                <textarea></textarea>
-            </>
+            case 'Quick Create': return <QuickCreatePanel />
+            case 'Position': return <PositionPanel/>
+            case 'Text': return <TextPanel />
             case 'Line': return <>
             </>
             case 'Spot': return <>
@@ -60,7 +46,7 @@ export default function Editor(props) {
         <br />
         <br />
         <Container>
-            <Card style={{padding: '2rem'}}>
+            <Card style={{padding: '2rem', color: 'white', backgroundColor: 'rgb(31,41,55)', boxShadow: '2px 2px 12px #141414', borderRadius: '1rem'}}>
                 {panel()}
             </Card>
         </Container>

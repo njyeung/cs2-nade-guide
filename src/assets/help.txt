@@ -1,0 +1,29 @@
+map [map-name]
+
+sv_cheats 1;
+mp_maxmoney 65535;
+mp_startmoney 65535;
+bot_kick;
+sv_infinite_ammo 1;
+mp_freezetime 0;
+mp_roundtime 60;
+mp_roundtime_defuse 60;
+mp_roundtime_hostage 60;
+mp_buytime 60000;
+mp_buy_anywhere 1;
+sv_showimpacts 1;
+sv_grenade_trajectory_prac_pipreview true;
+sv_grenade_trajectory_prac_trailtime 10;
+sv_grenade_trajectory_time_spectator 10;
+sv_allow_annotations true;
+mp_restartgame 1;
+
+bind [key] noclip;
+bind [key] sv_rethrow_last_grenade;
+
+Annotation: You need to specify the type of node. The options are
+grenade: annotation_create grenade "label"
+position: annotation_create position "label"
+text: annotation_create text "title" "text" float|surface [faceplayer]
+line: annotation_create line float|surface [new]
+spot: annotation_create spot

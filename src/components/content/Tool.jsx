@@ -2,11 +2,12 @@ import React, { useEffect, useState, useContext} from "react"
 import {Col, Row, Container, Button, Card, Form} from "react-bootstrap"
 
 import Annotation from './Annotation'
-import QuickCreatePanel from "./QuickCreatePanel";
-import TextPanel from "./TextPanel";
-import PositionPanel from "./PositionPanel";
-
-export default function Editor(props) {
+import QuickCreatePanel from "./panels/QuickCreatePanel";
+import TextPanel from "./panels/TextPanel";
+import PositionPanel from "./panels/PositionPanel";
+import LinePanel from "./panels/LinePanel";
+import SpotPanel from "./panels/SpotPanel";
+export default function Tool(props) {
 
     const [active, setActive] = useState("Quick Create");
 
@@ -15,10 +16,8 @@ export default function Editor(props) {
             case 'Quick Create': return <QuickCreatePanel />
             case 'Position': return <PositionPanel/>
             case 'Text': return <TextPanel />
-            case 'Line': return <>
-            </>
-            case 'Spot': return <>
-            </>
+            case 'Line': return <LinePanel />
+            case 'Spot': return <SpotPanel />
             default: return <></>
         }
     }

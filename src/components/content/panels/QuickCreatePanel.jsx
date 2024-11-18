@@ -26,15 +26,15 @@ function QuickCreatePanel(props) {
             Quick Create
         </h4>
         <p>
-            Stand at the location, position your cursor at the line-up, and paste the following command in the console to generate a node
+            Stand at the location, position your cursor at the line-up, and paste the following command in the console to generate nodes.
         </p>
         <h4>
             Properties
         </h4>
         <Form.Label htmlFor="title">Line-up Title</Form.Label>
-        <Form.Control placeholder="Window Smoke" onChange={(e)=>setTitle(e.target.value)} value={title} id="title"/>
+        <Form.Control placeholder="Connector Smoke" onChange={(e)=>setTitle(e.target.value)} value={title} id="title"/>
         <Form.Text style={{color:'white'}}>
-            Description is currently not accessible through the console. You must edit the outputted .txt file directly 
+            Description is currently not accessible through the console. You must edit the outputted .txt file directly.
         </Form.Text>
         <br />
         <h4>

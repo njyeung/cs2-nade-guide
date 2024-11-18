@@ -16,7 +16,7 @@ function Annotation(props) {
     style={active==props.title ? {...styles.card, ...styles.cardActive} : {...styles.card}}>
         <div style={{width: '100%', position: 'relative', textAlign: 'center'}}>
             <Carousel pause={false} controls={false} variant="dark">
-                {images.map((img)=> <Carousel.Item>
+                {images.map((img)=> <Carousel.Item key={img}>
                     <img style={active==props.title ? {...styles.imageActive} : {...styles.image}} src={img} alt="" />
                 </Carousel.Item>)}
             </Carousel>

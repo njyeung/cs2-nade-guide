@@ -15,10 +15,10 @@ function Home () {
         ready to start generating console commands for your nade lineups, or keep reading for a step by step guide!</p>
         <h2>Setting up</h2>
         <p>Join a practice map of your choice and paste the following starter commands in your terminal:</p>
-        <textarea id="command1" style={{width: '100%', height: 'auto'}} contentEditable={false} value="sv_cheats 1;mp_maxmoney 65535;mp_startmoney 65535;bot_kick;sv_infinite_ammo 1;mp_freezetime 0;mp_roundtime 60;mp_roundtime_defuse 60;mp_roundtime_hostage 60;mp_buytime 60000;mp_buy_anywhere 1;sv_showimpacts 1;sv_grenade_trajectory_prac_pipreview true;sv_grenade_trajectory_prac_trailtime 10;sv_grenade_trajectory_time_spectator 10;sv_allow_annotations;sv_annotations_clear;mp_restartgame 1;"></textarea>
+        <textarea id="command1" style={{width: '100%', height: 'auto'}} contentEditable={false} value="sv_cheats 1;mp_maxmoney 65535;mp_startmoney 65535;bot_kick;sv_infinite_ammo 1;mp_freezetime 0;mp_roundtime 60;mp_roundtime_defuse 60;mp_roundtime_hostage 60;mp_buytime 60000;mp_buy_anywhere 1;sv_showimpacts 1;sv_grenade_trajectory_prac_pipreview true;sv_grenade_trajectory_prac_trailtime 10;sv_grenade_trajectory_time_spectator 10;sv_allow_annotations true;annotation_clear;mp_restartgame 1;"></textarea>
         <Button onClick={()=>copy('command1')} style={{marginBottom: '0.5rem'}} variant="success">Click to Copy</Button>
         <p>After your server restarts, paste these commands in the terminal to quickly obtain your grenades:</p>
-        <textarea id="command2" style={{width: '100%', height: 'auto'}} contentEditable={false} value="give weapon_ak47;give weapon_smokegrenade;give weapon_molotov;give weapon_flashbang;give weapon_hegrenade;give weapon_frag_gernade;"></textarea>
+        <textarea id="command2" style={{width: '100%', height: 'auto'}} contentEditable={false} value="give weapon_ak47;give weapon_smokegrenade;give weapon_molotov;give weapon_flashbang;give weapon_hegrenade;"></textarea>
         <Button onClick={()=>copy('command2')} style={{marginBottom: '0.5rem'}}  variant="success">Click to Copy</Button>
         <p>Now you're ready to head over to <a href="/editor">the tool page</a>!</p>
         <h2>Saving your guide</h2>

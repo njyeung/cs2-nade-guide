@@ -7,6 +7,7 @@ import TextPanel from "./panels/TextPanel";
 import PositionPanel from "./panels/PositionPanel";
 import LinePanel from "./panels/LinePanel";
 import SpotPanel from "./panels/SpotPanel";
+
 export default function Tool(props) {
 
     const [active, setActive] = useState("Quick Create");
@@ -25,19 +26,24 @@ export default function Tool(props) {
         <Container>
             <Row>
                 <Col>
-                    <Annotation setActive={setActive} active={active} title={"Quick Create"} content={"Quickly create a grenade lineup with position, text, and spot all at once"}></Annotation>
+                    <Annotation
+                    setActive={setActive} active={active} title={"Quick Create"} content={"Quickly create a grenade lineup with position, text, and spot all at once"}></Annotation>
                 </Col>
                 <Col>
-                    <Annotation setActive={setActive} active={active} title={"Position"} content={"Create a standing position at your location"}></Annotation>
+                    <Annotation
+                    setActive={setActive} active={active} title={"Position"} content={"Create a standing position at your location"}></Annotation>
                 </Col>
                 <Col>
-                    <Annotation setActive={setActive} active={active} title={"Text"} content={"Create a text opacity where your crosshair is pointed"}></Annotation>
+                    <Annotation
+                    setActive={setActive} active={active} title={"Text"} content={"Create a text opacity where your crosshair is pointed"}></Annotation>
                 </Col>
                 <Col>
-                    <Annotation setActive={setActive} active={active} title={"Line"} content={"Don't know what this does"}></Annotation>
+                    <Annotation
+                    setActive={setActive} active={active} title={"Line"} content={"Draw lines and shapes"}></Annotation>
                 </Col>
                 <Col>
-                    <Annotation setActive={setActive} active={active} title={"Spot"} content={"Create a line-up where your crosshair is pointed"}></Annotation>
+                    <Annotation
+                    setActive={setActive} active={active} title={"Spot"} content={"Create a line-up where your crosshair is pointed"}></Annotation>
                 </Col>
             </Row>
         </Container>

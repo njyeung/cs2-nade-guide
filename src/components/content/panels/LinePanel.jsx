@@ -45,7 +45,7 @@ function LinePanel(props) {
         <Button style={{marginTop: '0.5rem', width: '10rem'}} onClick={()=>copy('output1')} variant="success">Click to Copy</Button>
         <br />
         <h6>
-            Attach a point connecting to the previous node
+            Attach a point forming a line connecting to the previous node
         </h6>
         <Form.Control id='output2' value={output} readOnly={true} as="textarea" rows={3} />
         <Button style={{marginTop: '0.5rem', width: '10rem'}} onClick={()=>copy('output2')} variant="success">Click to Copy</Button>

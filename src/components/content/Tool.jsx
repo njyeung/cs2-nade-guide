@@ -24,7 +24,7 @@ export default function Tool(props) {
     }
     return <div>
         <Container>
-            <Row>
+            <Row xs={2} s={2} md={3} lg={5}>
                 <Col>
                     <Annotation
                     setActive={setActive} active={active} title={"Quick Create"} content={"Quickly create a grenade lineup with position, text, and spot all at once"}></Annotation>

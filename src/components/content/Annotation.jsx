@@ -9,13 +9,15 @@ function Annotation(props) {
     // check if we're in dev or prod for the image url LMAO
     useEffect(()=>{
         checkIfImageExists(`./${images[0]}`, (exists)=> {
-            setProd(false);
+            if(exists) {
+                setProd(false);
+            }
         })
     },[]);
 
     const active = props.active
 
-    const header = `/images/${props.title.replace(' ', '').toLowerCase()}`
+    const header = `images/${props.title.replace(' ', '').toLowerCase()}`
     const images = [`${header}1.jpg`, `${header}2.jpg`, `${header}3.jpg`]
     
     const styles = {
@@ -30,7 +32,7 @@ function Annotation(props) {
         <div style={{width: '100%', position: 'relative', textAlign: 'center'}}>
             <Carousel interval={2000} pause={false} controls={false} variant="dark">
                 {images.map((img)=> <Carousel.Item key={img}>
-                    <img style={active==props.title ? {...styles.imageActive} : {...styles.image}} src={prod ? `./cs2-nade-guide/${img}` : `${img}`} alt={`Image for ${props.title}`} />
+                    <img style={active==props.title ? {...styles.imageActive} : {...styles.image}} src={prod ? `./cs2-nade-guide/${img}` : `./${img}`} alt={`Image for ${props.title}`} />
                 </Carousel.Item>)}
             </Carousel>
             <h1 style={{ position: 'absolute', color: "white", top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>{props.title}</h1>

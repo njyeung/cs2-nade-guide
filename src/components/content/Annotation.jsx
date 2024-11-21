@@ -6,7 +6,8 @@ function Annotation(props) {
     const active = props.active
 
     const header = `/images/${props.title.replace(' ', '').toLowerCase()}`
-    const images = [`${header}1.jpg`, `${header}2.jpg`, `${header}3.jpg`] 
+    const images = [`${header}1.jpg`, `${header}2.jpg`, `${header}3.jpg`]
+    
     const styles = {
         card: {display: 'flex', transform: 'scale(95%)', filter: 'brightness(85%)', boxShadow : '2px 2px 12px #141414', background: '#05152d', overflow: 'hidden', flexDirection: 'column', minHeight: '100%', margin: "0.5rem", border:'none', borderRadius: '1rem'},
         cardActive: {boxShadow: '0px 0px 22px rgba(255,140,0,0.33)', transform: 'scale(100%)',border: '1px solid rgb(255,140,0)', filter: 'brightness(1)'},
@@ -19,7 +20,7 @@ function Annotation(props) {
         <div style={{width: '100%', position: 'relative', textAlign: 'center'}}>
             <Carousel interval={2000} pause={false} controls={false} variant="dark">
                 {images.map((img)=> <Carousel.Item key={img}>
-                    <img style={active==props.title ? {...styles.imageActive} : {...styles.image}} src={img} alt={`Image for ${props.title}`} />
+                    <img style={active==props.title ? {...styles.imageActive} : {...styles.image}} src={`./cs2-nade-guide/${img}`} alt={`Image for ${props.title}`} />
                 </Carousel.Item>)}
             </Carousel>
             <h1 style={{ position: 'absolute', color: "white", top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>{props.title}</h1>

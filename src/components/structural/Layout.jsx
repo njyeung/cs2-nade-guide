@@ -20,8 +20,8 @@ function Layout(props) {
                         &nbsp;&nbsp;CS2&nbsp;Nade&nbsp;Guide
                     </Navbar.Brand>
                     <Nav className="me-auto">
-                        <Nav.Link as={Link} to="/">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/tool">Tool</Nav.Link>
+                        <Nav.Link as={Link} to="./">Home</Nav.Link>
+                        <Nav.Link as={Link} to="./tool">Tool</Nav.Link>
                         <Nav.Link as={Link} to="https://github.com/njyeung/cs2-nade-guide">Github</Nav.Link>
                     </Nav>
                 </Container>

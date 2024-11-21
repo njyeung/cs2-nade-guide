@@ -10,7 +10,11 @@ function Annotation(props) {
     useEffect(()=>{
         checkIfImageExists(`./${images[0]}`, (exists)=> {
             if(exists) {
+                console.log('IN DEV MODE')
                 setProd(false);
+            }
+            else {
+                console.log('IN PROD')
             }
         })
     },[]);

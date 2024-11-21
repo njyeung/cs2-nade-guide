@@ -22,7 +22,7 @@ function LinePanel(props) {
 
     return <>
         <h4>
-            Text
+            Line
         </h4>
         <p>
             Position yourself at a location (possibly using noclip), paste the first command in the console to create the starting point of a new line <b>at your play model's location</b>, then paste the second command in the console to generate following nodes.

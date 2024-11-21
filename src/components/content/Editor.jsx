@@ -40,7 +40,7 @@ const styles = {
         border: '0.5rem dashed rgb(255,140,0)', borderRadius: '3rem', justifyContent: 'center', alignItems: 'center'
     },
     dragBoxHover: {
-        backgroundColor: 'rgba(0, 0, 0, 0.6)'
+        backgroundColor: 'rgba(0, 0, 0, 0.3)'
     }
 }
 export default Editor;

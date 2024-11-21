@@ -34,10 +34,10 @@ function TextPanel(props) {
         <h4>
             Properties
         </h4>
-        <Form.Label htmlFor="title">Title</Form.Label>
+        <Form.Label htmlFor="title">Text Title</Form.Label>
         <Form.Control placeholder="Window Smoke" onChange={(e)=>setTitle(e.target.value)} value={title} id="title"/>
         <br />
-        <Form.Label htmlFor="description">Description</Form.Label>
+        <Form.Label htmlFor="description">Text Description</Form.Label>
         <Form.Control placeholder="Left click and jump throw" onChange={(e)=>setDescription(e.target.value)} value={description} id="description"/>
         <br />
         <Form.Check id="switch" type="switch" label="Float / Surface" onChange={()=>setFloat((p)=>!p)}></Form.Check>

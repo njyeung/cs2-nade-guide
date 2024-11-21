@@ -22,6 +22,7 @@ function Layout(props) {
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="./">Home</Nav.Link>
                         <Nav.Link as={Link} to="./tool">Tool</Nav.Link>
+                        <Nav.Link as={Link} to="./editor">Editor</Nav.Link>
                         <Nav.Link as={Link} to="https://github.com/njyeung/cs2-nade-guide">Github</Nav.Link>
                     </Nav>
                 </Container>

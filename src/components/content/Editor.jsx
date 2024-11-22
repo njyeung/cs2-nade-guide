@@ -10,7 +10,7 @@ function Editor(props) {
         setHoverFile(false);
         alert("EDITOR COMING SOON")
         return 
-        
+
         if(e.dataTransfer.files && e.dataTransfer.files.length==1) {
             var file = e.dataTransfer.files[0]
             const reader = new FileReader();
@@ -107,7 +107,7 @@ function Editor(props) {
 const styles = {
     dragBox: {
         width: '100%', height: '500px', margin: '2rem', color: 'white', display: 'flex', transition: '0.3s', backgroundColor: 'rgba(0, 0, 0, 0.1)',
-        border: '0.5rem dashed rgb(255,140,0)', borderRadius: '3rem', justifyContent: 'center', alignItems: 'center'
+        border: '0.3rem dashed rgb(255,140,0)', borderRadius: '3rem', justifyContent: 'center', alignItems: 'center'
     },
     dragBoxHover: {
         backgroundColor: 'rgba(0, 0, 0, 0.3)'

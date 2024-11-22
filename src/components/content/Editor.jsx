@@ -8,7 +8,9 @@ function Editor(props) {
     function drop(e) {
         e.preventDefault();
         setHoverFile(false);
-        console.log(e.dataTransfer.files)
+        alert("EDITOR COMING SOON")
+        return 
+        
         if(e.dataTransfer.files && e.dataTransfer.files.length==1) {
             var file = e.dataTransfer.files[0]
             const reader = new FileReader();
@@ -16,9 +18,7 @@ function Editor(props) {
             // Handle when file is read
             reader.onload = function(event) {
                 const text = event.target.result;
-                console.log(parseKV3(text))
                 var json = parseKV3(text);
-                //console.log(toKV3(json))
             };
 
             reader.readAsText(file);
@@ -61,7 +61,6 @@ function Editor(props) {
         .replace(/(true|false|null),\s*}/g, '$1 }')// edge case: find bools that come before a } and remove their commas
 
         string = JSON.stringify(JSON.parse(string))
-        console.log(string)
         try {
             return JSON.parse(string);
         }

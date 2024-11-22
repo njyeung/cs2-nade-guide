@@ -6,9 +6,23 @@ function Editor(props) {
     const [hoverFile, setHoverFile] = useState(false);
 
     function drop(e) {
-        alert("EDITOR COMING SOON")
         e.preventDefault();
         setHoverFile(false);
+        console.log(e.dataTransfer.files)
+        if(e.dataTransfer.files && e.dataTransfer.files.length==1) {
+            var file = e.dataTransfer.files[0]
+            const reader = new FileReader();
+
+            // Handle when file is read
+            reader.onload = function(event) {
+                const text = event.target.result;
+                console.log(parseKV3(text))
+                var json = parseKV3(text);
+                //console.log(toKV3(json))
+            };
+
+            reader.readAsText(file);
+        }
     }
     
     function dragover(e) {
@@ -31,6 +45,63 @@ function Editor(props) {
         </div>
     </Container>
 
+    // KV3 to JSON
+    function parseKV3(kv3String) {
+        // Remove KV3 metadata lines at the top (if they exist)
+        const cleanInput = kv3String.replace(/<!--.*?-->/g, "").trim();
+
+        // THIS IS SO COOKED
+        var string = cleanInput
+        .replace(/([a-zA-Z0-9_]+)\s*=/g, '"$1":') // Convert `key = value` to `"key": value`
+        .replace(/(?<=[\"\}\]])\s*(?=[\"\{])/g, ',') // put commas after " and } and ], but not when } follows
+        .replace(/(?<=(true|false|null))\s*(?=["\}\]])/g, ',') // putting commas after true and false
+        .replace(/:\s*","/g, ': ""') // edge case, we fix the issue when "" becomes ","
+        .replace(/(:\s*[-]?\d*\.?\d+)/g, '$1,') // find numbers and put commas after them
+        .replace(/(:\s*[-]?\d*\.?\d+),\s*}/g, '$1 }') // edge case: find numbers that come before a } and remove their commas
+        .replace(/(true|false|null),\s*}/g, '$1 }')// edge case: find bools that come before a } and remove their commas
+
+        string = JSON.stringify(JSON.parse(string))
+        console.log(string)
+        try {
+            return JSON.parse(string);
+        }
+        catch(error) {
+            alert("CONVERSION DID NOT WORK")
+            return null
+        }
+    }
+
+    function toKV3(json) {
+        function convertObject(obj, depth = 0) {
+            const indent = "    ".repeat(depth); // 4-space indentation for readability
+            const lines = [];
+    
+            for (const key in obj) {
+                const value = obj[key];
+    
+                if (Array.isArray(value)) {
+                    // Format arrays as KV3-compatible
+                    lines.push(`${indent}${key} = [ ${value.join(", ")} ]`);
+                } else if (typeof value === "object" && value !== null) {
+                    // Format nested objects
+                    lines.push(`${indent}${key} =`);
+                    lines.push(`${indent}{`);
+                    lines.push(convertObject(value, depth + 1));
+                    lines.push(`${indent}}`);
+                } else if (typeof value === "string") {
+                    // Wrap strings in double quotes
+                    lines.push(`${indent}${key} = "${value}"`);
+                } else {
+                    // Handle booleans, numbers, and other primitives
+                    lines.push(`${indent}${key} = ${value}`);
+                }
+            }
+    
+            return lines.join("\n");
+        }
+    
+        return `{\n${convertObject(json)}\n}`;
+    }
     
 }
 

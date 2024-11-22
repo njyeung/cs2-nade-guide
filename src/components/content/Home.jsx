@@ -24,7 +24,7 @@ function Home () {
         <h2>Saving your guide</h2>
         <p>In the terminal, type annotation_save followed by the file name you want to save your guide:</p>
         <textarea style={{width: '100%', height: 'auto'}} value="annotation_save [file name]"></textarea>
-        <p>Then, visit your annotations directory in <b>C:\Program Files (x86)\Steam\steam apps\common\Counter-Strike Global Offensive\game\csgo\annotations</b> to retreive your file</p>
+        <p>Then, visit your annotations directory in <b>C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\game\csgo\annotations</b> to retreive your file</p>
         <h4>Additional</h4>
         <p>You may also edit your annotation file and add throwing instructions directly, as it is a .txt file!</p>
     </Container>

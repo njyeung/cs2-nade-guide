@@ -4,27 +4,34 @@ function Node(props) {
     // props: {
     //     localProps: props for this component 
     //     allNodes: props for all nodes 
+    //     updateData: function to update data
     //     k: key
     // }
 
     const [localProps, setLocalProps] = useState(null)
-    const [children, setChildren] = useState([])
+    const [children, setChildren] = useState(null)
 
     useEffect(()=>{
         setLocalProps(props.localProps)
-        console.log(props.localProps)
-        var arr = []
-        Object.keys(props.allNodes).filter((key)=>props.allNodes[key].MasterNodeId == props.localProps.Id).forEach((key)=>arr.push(props.allNodes[key]))
-        setChildren(arr)
+        var obj = {}
+        Object.keys(props.allNodes).filter((key)=>props.allNodes[key].MasterNodeId == props.localProps.Id).forEach((key)=>obj[key] = props.allNodes[key])
+        setChildren(obj)
     }, [])
 
     useEffect(()=>{
-
+        try{
+            var obj = {[props.k]: {...localProps}}
+            Object.keys(children).forEach((key)=>obj[key] = children[key])
+            props.updateData(obj)
+        }
+        catch(e) {
+            console.log(e)
+        }
     }, [localProps])
 
     return localProps&&localProps.SubType=="main" ? <Card style={styles.card}>
         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'end'}}>
-            <h3>{localProps.Title.Text=="" ? "No Title" : <b>"{localProps.Title.Text}"</b>} &nbsp;</h3>
+            <h3>{localProps.Title.Text=="" ? "[no title]" : <b>"{localProps.Title.Text}"</b>} &nbsp;</h3>
             <h5>&nbsp; Type: <b>"{localProps.Type}"</b></h5>
         </div>
         <Form.Label>Id: {localProps.Id}</Form.Label>
@@ -44,7 +51,7 @@ function Node(props) {
         <Form.Check id="switch" type="switch" label="Text Face Player" checked={localProps.TextFacePlayer} onChange={()=>setLocalProps((props)=>{return {...props, TextFacePlayer: !props.TextFacePlayer}})}></Form.Check>
         <Form.Check id="switch" type="switch" label="Reveal On Success" checked={localProps.ReavealOnSuccess} onChange={()=>setLocalProps((props)=>{return {...props, RevealOnSuccess: !props.RevealOnSuccess}})}></Form.Check>
 
-        {children.map((child)=><h2>{child.SubType}</h2>)}
+        {Object.keys(children).map((key)=><h2>{children[key].Id}</h2>)}
     </Card> : <></>
 }
 

@@ -5,15 +5,28 @@ import document from '../../assets/document.svg'
 
 function Editor(props) {
     const [hoverFile, setHoverFile] = useState(false);
+
     const [data, setData] = useState(null)
     const [nodes, setNodes] = useState(null)
+
+    function updateData(updates) {
+        console.log(updates)
+        var jsonObject = JSON.parse(JSON.stringify(data))
+        for (const key in updates) {
+            if (updates.hasOwnProperty(key)) {
+                jsonObject[key] = updates[key];
+            }
+        }
+        setData(jsonObject);
+    }
 
     function drop(e) {
         e.preventDefault();
         setHoverFile(false);
-        alert('EDITOR COMING SOON')
-        return
 
+        alert("EDITOR COMING SOON")
+        return 
+        
         if(e.dataTransfer.files && e.dataTransfer.files.length==1) {
             var file = e.dataTransfer.files[0]
             const reader = new FileReader();
@@ -63,7 +76,7 @@ function Editor(props) {
                 }}>Edit New File</Button>
                 <Button variant="success">Save As</Button>
             </div>
-            {Object.keys(nodes).map((key)=><Node key={key} k={key} allNodes={nodes} localProps={nodes[key]}></Node>)}
+            {Object.keys(nodes).map((key)=><Node key={key} k={key} updateData={(e)=>updateData(e)} allNodes={nodes} localProps={nodes[key]}></Node>)}
         </>
         }
         

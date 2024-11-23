@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from "react";
-import { Card, Container } from "react-bootstrap";
+import { Card, Container, Row, Col, Button, Form } from "react-bootstrap";
+import Node from "./Node"
 import document from '../../assets/document.svg'
 
 function Editor(props) {
     const [hoverFile, setHoverFile] = useState(false);
+    const [data, setData] = useState(null)
+    const [nodes, setNodes] = useState(null)
 
     function drop(e) {
         e.preventDefault();
         setHoverFile(false);
-        alert("EDITOR COMING SOON")
-        return 
+        alert('EDITOR COMING SOON')
+        return
 
         if(e.dataTransfer.files && e.dataTransfer.files.length==1) {
             var file = e.dataTransfer.files[0]
@@ -18,13 +21,18 @@ function Editor(props) {
             // Handle when file is read
             reader.onload = function(event) {
                 const text = event.target.result;
-                var json = parseKV3(text);
-            };
+                var obj = parseKV3(text);
+                setData(obj);
 
+                var clonedObj = JSON.parse(JSON.stringify(obj))
+                delete clonedObj.MapName
+                delete clonedObj.ScreenText 
+                setNodes(clonedObj)
+            };
             reader.readAsText(file);
         }
     }
-    
+
     function dragover(e) {
         e.preventDefault();
         setHoverFile(true);
@@ -36,16 +44,32 @@ function Editor(props) {
     }
 
     return <Container style={{justifyItems: 'center'}}>
-        <div style={ hoverFile ? {...styles.dragBox, ...styles.dragBoxHover} : {...styles.dragBox}} 
+
+        { data==null ? <div style={ hoverFile ? {...styles.dragBox, ...styles.dragBoxHover} : {...styles.dragBox}} 
         onDragOver={(e)=>{dragover(e)}} onDrop={(e)=>drop(e)} onDragLeave={(e)=>{dragleave(e)}}>
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                 <h2 style={{margin: '1rem'}}>Drag your annotation .txt file here!</h2>
                 <img style={{width: '100px', filter: 'invert(100%)'}} src={document} alt="document icon" />
             </div>
-        </div>
+        </div> : 
+        <>
+            <div style={{color: 'white', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
+                <Form.Check type="switch" label="Advanced"/>
+                <Button variant="danger" onClick={()=>{
+                    if(confirm('Are you sure you want to edit a new file? You will lose your current progress.')) {
+                        setData(null)
+                        setNodes(null)
+                    }
+                }}>Edit New File</Button>
+                <Button variant="success">Save As</Button>
+            </div>
+            {Object.keys(nodes).map((key)=><Node key={key} k={key} allNodes={nodes} localProps={nodes[key]}></Node>)}
+        </>
+        }
+        
     </Container>
 
-    // KV3 to JSON
+    // KV3 to JSON 
     function parseKV3(kv3String) {
         // Remove KV3 metadata lines at the top (if they exist)
         const cleanInput = kv3String.replace(/<!--.*?-->/g, "").trim();
@@ -65,7 +89,7 @@ function Editor(props) {
             return JSON.parse(string);
         }
         catch(error) {
-            alert("CONVERSION DID NOT WORK")
+            alert("Error parsing KV3 file, try to avoid using colons ( : ), quotes ( \"\" ), and braces ( {} )")
             return null
         }
     }

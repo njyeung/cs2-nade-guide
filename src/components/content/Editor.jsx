@@ -10,7 +10,6 @@ function Editor(props) {
     const [nodes, setNodes] = useState(null)
 
     function updateData(updates) {
-        console.log(updates)
         var jsonObject = JSON.parse(JSON.stringify(data))
         for (const key in updates) {
             if (updates.hasOwnProperty(key)) {
@@ -25,24 +24,35 @@ function Editor(props) {
         setHoverFile(false);
 
         alert("EDITOR COMING SOON")
-        return 
+        return
         
         if(e.dataTransfer.files && e.dataTransfer.files.length==1) {
             var file = e.dataTransfer.files[0]
             const reader = new FileReader();
 
             // Handle when file is read
-            reader.onload = function(event) {
-                const text = event.target.result;
-                var obj = parseKV3(text);
-                setData(obj);
-
-                var clonedObj = JSON.parse(JSON.stringify(obj))
-                delete clonedObj.MapName
-                delete clonedObj.ScreenText 
-                setNodes(clonedObj)
-            };
-            reader.readAsText(file);
+            try {
+                reader.onload = function(event) {
+                    const text = event.target.result;
+                    var obj = parseKV3(text);
+                    setData(obj);
+    
+                    var clonedObj = JSON.parse(JSON.stringify(obj))
+                    delete clonedObj.MapName
+                    delete clonedObj.ScreenText 
+                    setNodes(clonedObj)
+                };
+                reader.readAsText(file);
+            }
+            catch(e) {
+                alert("ERROR. Make sure you are dropping a text file.")
+            }
+        }
+        else if(e.dataTransfer.files.length>1) {
+            alert("Drag and drop one file at a time.")
+        }
+        else {
+            alert("ERROR. Try again.")
         }
     }
 
@@ -56,7 +66,7 @@ function Editor(props) {
         setHoverFile(false);
     }
 
-    return <Container style={{justifyItems: 'center'}}>
+    return <Container data-bs-theme="dark" style={{justifyItems: 'center'}}>
 
         { data==null ? <div style={ hoverFile ? {...styles.dragBox, ...styles.dragBoxHover} : {...styles.dragBox}} 
         onDragOver={(e)=>{dragover(e)}} onDrop={(e)=>drop(e)} onDragLeave={(e)=>{dragleave(e)}}>

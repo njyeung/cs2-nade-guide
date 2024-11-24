@@ -22,7 +22,7 @@ export default function Tool(props) {
             default: return <></>
         }
     }
-    return <div>
+    return <div data-bs-theme="dark">
         <Container>
             <Row xs={2} s={2} md={3} lg={5}>
                 <Col>

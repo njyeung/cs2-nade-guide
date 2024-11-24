@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Card, Container, Row, Col, Button, Form } from "react-bootstrap";
+import { saveAs } from 'file-saver';
 import Node from "./Node"
 import document from '../../assets/document.svg'
 
@@ -67,7 +68,6 @@ function Editor(props) {
     }
 
     return <Container data-bs-theme="dark" style={{justifyItems: 'center'}}>
-
         { data==null ? <div style={ hoverFile ? {...styles.dragBox, ...styles.dragBoxHover} : {...styles.dragBox}} 
         onDragOver={(e)=>{dragover(e)}} onDrop={(e)=>drop(e)} onDragLeave={(e)=>{dragleave(e)}}>
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
@@ -84,13 +84,19 @@ function Editor(props) {
                         setNodes(null)
                     }
                 }}>Edit New File</Button>
-                <Button variant="success">Save As</Button>
+                <Button variant="success" onClick={()=>{
+                    var string = toKV3(data)
+                    const blob = new Blob([string], {type: 'text'})
+                    saveAs(blob, 'annotations.txt')
+                }}>Save As</Button>
             </div>
             {Object.keys(nodes).map((key)=><Node key={key} k={key} updateData={(e)=>updateData(e)} allNodes={nodes} localProps={nodes[key]}></Node>)}
         </>
         }
         
     </Container>
+
+    
 
     // KV3 to JSON 
     function parseKV3(kv3String) {
@@ -107,8 +113,8 @@ function Editor(props) {
         .replace(/(:\s*[-]?\d*\.?\d+),\s*}/g, '$1 }') // edge case: find numbers that come before a } and remove their commas
         .replace(/(true|false|null),\s*}/g, '$1 }')// edge case: find bools that come before a } and remove their commas
 
-        string = JSON.stringify(JSON.parse(string))
         try {
+            string = JSON.stringify(JSON.parse(string))
             return JSON.parse(string);
         }
         catch(error) {
@@ -118,37 +124,41 @@ function Editor(props) {
     }
 
     function toKV3(json) {
-        function convertObject(obj, depth = 0) {
-            const indent = "    ".repeat(depth); // 4-space indentation for readability
-            const lines = [];
-    
-            for (const key in obj) {
-                const value = obj[key];
-    
-                if (Array.isArray(value)) {
-                    // Format arrays as KV3-compatible
-                    lines.push(`${indent}${key} = [ ${value.join(", ")} ]`);
-                } else if (typeof value === "object" && value !== null) {
-                    // Format nested objects
-                    lines.push(`${indent}${key} =`);
-                    lines.push(`${indent}{`);
-                    lines.push(convertObject(value, depth + 1));
-                    lines.push(`${indent}}`);
-                } else if (typeof value === "string") {
-                    // Wrap strings in double quotes
-                    lines.push(`${indent}${key} = "${value}"`);
-                } else {
-                    // Handle booleans, numbers, and other primitives
-                    lines.push(`${indent}${key} = ${value}`);
-                }
-            }
-    
-            return lines.join("\n");
-        }
-    
-        return `{\n${convertObject(json)}\n}`;
+
+        var converted = JSON.stringify(json, null, 4)
+        converted = converted.replace(/"([^"]+)":/g, '$1 =')  // Replace "key": with key =
+
+        // Find commas within quotes and replace it with | for the next step
+        converted = replaceCommasInQuotes(converted, '||||||||') // if someone decides to use 8 pipes they deserve to get it replaced
+
+        converted = converted.replace(/,\s*(?=[^\]]*(?:\[|$))/g, ' ') // replace all commas not within brackets
+        .replace(/\|\|\|\|\|\|\|\|/g, ',') // replace the 8 pipes back with commas
+
+        // TODO:
+        // ADD HEADER TO THE FILE
+        
+        return converted
     }
     
+    // Brute force because I'm too stupid to write regex
+    function replaceCommasInQuotes(input, replacement = ';') {
+        let result = '';
+        let insideQuotes = false;
+    
+        for (let i = 0; i < input.length; i++) {
+            const char = input[i];
+
+            if (char === '"' && (i === 0 || input[i - 1] !== '\\')) {
+                insideQuotes = !insideQuotes;
+            }
+            if (char === ',' && insideQuotes) {
+                result += replacement;
+            } else {
+                result += char;
+            }
+        }
+        return result;
+    }
 }
 
 const styles = {

@@ -9,6 +9,7 @@ function Editor(props) {
 
     const [data, setData] = useState(null)
     const [nodes, setNodes] = useState(null)
+    const [advanced, setAdvanced] = useState(false)
 
     function updateData(updates) {
         var jsonObject = JSON.parse(JSON.stringify(data))
@@ -24,8 +25,6 @@ function Editor(props) {
         e.preventDefault();
         setHoverFile(false);
 
-        alert("EDITOR COMING SOON")
-        return
         
         if(e.dataTransfer.files && e.dataTransfer.files.length==1) {
             var file = e.dataTransfer.files[0]
@@ -77,7 +76,7 @@ function Editor(props) {
         </div> : 
         <>
             <div style={{color: 'white', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
-                <Form.Check type="switch" label="Advanced"/>
+                <Form.Check type="switch" onChange={()=>setAdvanced((prev)=>!prev)} checked={advanced} label="Advanced"/>
                 <Button variant="danger" onClick={()=>{
                     if(confirm('Are you sure you want to edit a new file? You will lose your current progress.')) {
                         setData(null)
@@ -90,7 +89,7 @@ function Editor(props) {
                     saveAs(blob, 'annotations.txt')
                 }}>Save As</Button>
             </div>
-            {Object.keys(nodes).map((key)=><Node key={key} k={key} updateData={(e)=>updateData(e)} allNodes={nodes} localProps={nodes[key]}></Node>)}
+            {Object.keys(nodes).map((key)=><Node key={key} advanced={advanced} k={key} updateData={(e)=>updateData(e)} allNodes={nodes} localProps={nodes[key]}></Node>)}
         </>
         }
         

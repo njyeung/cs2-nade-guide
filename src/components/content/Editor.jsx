@@ -87,7 +87,7 @@ function Editor(props) {
                     var string = toKV3(data)
                     const blob = new Blob([string], {type: 'text'})
                     saveAs(blob, 'annotations.txt')
-                }}>Save As</Button>
+                }}>Save File</Button>
             </div>
             {Object.keys(nodes).map((key)=><Node key={key} advanced={advanced} k={key} updateData={(e)=>updateData(e)} allNodes={nodes} localProps={nodes[key]}></Node>)}
         </>

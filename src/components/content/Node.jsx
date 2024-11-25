@@ -1,5 +1,7 @@
 import React, {useState, useEffect, Component} from "react";
 import {Card, Form, Accordion} from "react-bootstrap"
+import { SketchPicker } from 'react-color'
+
 function Node(props) {
 
     // props: {
@@ -53,6 +55,24 @@ function Node(props) {
 
     }, [localProps])
 
+    function rgbArrToJson(arr) {
+        return {
+            r: Math.floor(arr[0]),
+            g: Math.floor(arr[1]),
+            b: Math.floor(arr[2])
+          };
+    }
+    function rgbArrToCss(arr) {
+        return `rgb(${Math.floor(arr[0])}, ${Math.floor(arr[1])}, ${Math.floor(arr[2])})`
+    }
+    function changeColor(color) {
+        setLocalProps((props)=>{
+            return {...props, Color: [Number(color.rgb.r), Number(color.rgb.g), Number(color.rgb.b)]}
+        })
+    }
+    
+    // TODO: Add Horizontal align property to parent and child nodes
+
     return localProps&&localProps.SubType=="main" ? <Card style={!localProps.Enabled ? {...styles.card, filter: 'brightness(70%)'} : {...styles.card}}>
         <img style={{position: 'absolute', right: '0%', top: '0%', width: '150px', margin: '1rem', borderRadius: '1rem'}} src={imgSrc} alt={`image of ${localProps.Type}`} />
         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'end'}}>
@@ -65,6 +85,8 @@ function Node(props) {
 
         <Form.Check id="switch" type="switch" label="Enabled" checked={localProps.Enabled} onChange={()=>setLocalProps((props)=>{return {...props, Enabled: !props.Enabled}})}></Form.Check>
         
+        <br />
+
         <Form.Label htmlFor="title">Title:</Form.Label>
         <Form.Control onChange={(e)=>setLocalProps((props)=>{return {...props, Title: {...props.Title, Text: e.target.value}}})} 
         value={localProps.Title.Text} id="title" placeholder="none"/>
@@ -104,7 +126,22 @@ function Node(props) {
             value={localProps.Desc.FadeOutDist} id="descFadeOut" type="number" placeholder="none"/>
             </div> : <></>
         }
-
+        <br />
+        {
+            localProps.Color!=undefined ? <>
+                <Form.Label>Color: </Form.Label>
+                <div style={{display: 'flex', flexDirection: 'row'}}>
+                    
+                    <SketchPicker color={rgbArrToJson(localProps.Color)}
+                    onChange={changeColor} disableAlpha={true}/> 
+                    <div style={{display: 'flex', flexDirection: 'column', margin: '0.5rem'}}>
+                        <div style={{width: '100px', height: '50px', borderRadius: '0.5rem', backgroundColor: rgbArrToCss(localProps.Color)}}></div>
+                    </div>
+                </div>
+            </>
+            
+            : <></>
+        }
         <br />
 
         <Form.Check type="switch" label="Text Face Player" checked={localProps.TextFacePlayer} onChange={()=>setLocalProps((props)=>{return {...props, TextFacePlayer: !props.TextFacePlayer}})}></Form.Check>

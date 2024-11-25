@@ -148,7 +148,7 @@ function Node(props) {
         {localProps.JumpThrow!=undefined ? <Form.Check type="switch" label="JumpThrow" checked={localProps.JumpThrow} onChange={()=>setLocalProps((props)=>{return {...props, JumpThrow: !props.JumpThrow}})}></Form.Check> : <></>}  
 
         { 
-            Object.keys(children).length>0 ? // yes, this is O(N), but I gave up a long time ago
+            Object.keys(children).length>0 ?
             <>
                 <br />
                 <h5>Children Nodes:</h5> 

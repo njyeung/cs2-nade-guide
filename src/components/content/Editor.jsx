@@ -79,6 +79,9 @@ function Editor(props) {
         <>
             {/* TODO: Add map name to top and maybe a cool pic*/}
             {/* TODO: Add a warning to not use colons, braces, and brackets bc that fucks with the parser */}
+            {/* TODO: Add filters for grenade, spot, line, position, and text */}
+            {/* TODO: Make a col and row system that user can customize */}
+            {/* TODO: Add button to delete the entire node from the json file */}
             <div style={{color: 'white', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
                 <Form.Check type="switch" onChange={()=>setAdvanced((prev)=>!prev)} checked={advanced} label="Advanced"/>
                 <Button variant="danger" onClick={()=>{
@@ -93,7 +96,6 @@ function Editor(props) {
                     saveAs(blob, 'annotations.txt')
                 }}>Save File</Button>
             </div>
-            {/* TODO: Make a col and row system that user can customize */}
             {Object.keys(nodes).map((key)=><Node key={key} advanced={advanced} k={key} updateData={(e)=>updateData(e)} allNodes={nodes} localProps={nodes[key]}></Node>)}
         </>
         }
@@ -137,7 +139,6 @@ function Editor(props) {
         converted = converted.replace(/,\s*(?=[^\]]*(?:\[|$))/g, ' ') // replace all commas not within brackets
         .replace(/\|\|\|\|\|\|\|\|/g, ',') // replace the 8 pipes back with commas
 
-        // TODO:
         converted = '<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->\n'
         + converted
         

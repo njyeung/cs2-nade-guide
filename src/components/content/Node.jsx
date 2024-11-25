@@ -25,7 +25,6 @@ function Node(props) {
     }, [])
 
     useEffect(()=>{
-        console.log(localProps)
         try{
             var obj = {[props.k]: {...localProps}}
             if(children!=null) {
@@ -50,7 +49,7 @@ function Node(props) {
             }
         }
         catch(e) {
-            console.log(e)
+            // type is prolly null
         }
 
     }, [localProps])
@@ -70,7 +69,7 @@ function Node(props) {
             return {...props, Color: [Number(color.rgb.r), Number(color.rgb.g), Number(color.rgb.b)]}
         })
     }
-    
+
     // TODO: Add Horizontal align property to parent and child nodes
 
     return localProps&&localProps.SubType=="main" ? <Card style={!localProps.Enabled ? {...styles.card, filter: 'brightness(70%)'} : {...styles.card}}>
@@ -129,13 +128,13 @@ function Node(props) {
         <br />
         {
             localProps.Color!=undefined ? <>
-                <Form.Label>Color: </Form.Label>
+                <Form.Label>Text Color: </Form.Label>
                 <div style={{display: 'flex', flexDirection: 'row'}}>
                     
                     <SketchPicker color={rgbArrToJson(localProps.Color)}
                     onChange={changeColor} disableAlpha={true}/> 
                     <div style={{display: 'flex', flexDirection: 'column', margin: '0.5rem'}}>
-                        <div style={{width: '100px', height: '50px', borderRadius: '0.5rem', backgroundColor: rgbArrToCss(localProps.Color)}}></div>
+                        <div style={{width: '50px', height: '50px', borderRadius: '0.5rem', backgroundColor: rgbArrToCss(localProps.Color)}}></div>
                     </div>
                 </div>
             </>

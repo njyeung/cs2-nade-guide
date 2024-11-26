@@ -130,12 +130,17 @@ function Node(props) {
             localProps.Color!=undefined ? <>
                 <Form.Label>Text Color: </Form.Label>
                 <div style={{display: 'flex', flexDirection: 'row'}}>
-                    
                     <SketchPicker color={rgbArrToJson(localProps.Color)}
                     onChange={changeColor} disableAlpha={true}/> 
-                    <div style={{display: 'flex', flexDirection: 'column', margin: '0.5rem'}}>
-                        <div style={{width: '50px', height: '50px', borderRadius: '0.5rem', backgroundColor: rgbArrToCss(localProps.Color)}}></div>
-                    </div>
+                    { localProps.Title.Text!='' || localProps.Desc.Text!='' ?
+                        <div style={{display: 'flex', flexDirection: 'column', marginLeft: '1rem', textAlign: 'center'}}>
+                            <h5>Preview: </h5>
+                            <div style={{padding: '0.5rem', maxWidth: '20rem', borderRadius: '0.5rem', background: 'rgba(0,0,0,0.3)', textAlign: 'center'}}>
+                                <h6 style={{color: rgbArrToCss(localProps.Color)}}>{localProps.Title.Text}</h6>     
+                                <p style={{color: rgbArrToCss(localProps.Color)}}>{localProps.Desc.Text}</p>    
+                            </div>
+                        </div> : <></>
+                    }
                 </div>
             </>
             

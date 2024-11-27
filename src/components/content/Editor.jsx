@@ -123,8 +123,7 @@ function Editor(props) {
             return JSON.parse(string);
         }
         catch(error) {
-            alert("Error parsing KV3 file, try to avoid using colons ( : ), quotes ( \"\" ), and braces ( {} )")
-            return null
+            return new Error("Error parsing KV3 file. Make sure you have a valid annotation file. Try to avoid using colons ( : ), quotes ( \"\" ), and braces ( {} )") 
         }
     }
 

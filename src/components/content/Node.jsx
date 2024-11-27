@@ -11,6 +11,7 @@ function Node(props) {
     //     updateData: function to update data
     //     k: key
     //     advanced: bool to toggle advanced options
+    //     view: 'list' or 'grid'
     // }
 
     const [localProps, setLocalProps] = useState(null)
@@ -70,12 +71,16 @@ function Node(props) {
         })
     }
 
+    // TODO: FIX HTML ID ISSUE
     // TODO: Add Horizontal align property to parent and child nodes
 
-    return localProps&&localProps.SubType=="main" ? <Card style={!localProps.Enabled ? {...styles.card, filter: 'brightness(70%)'} : {...styles.card}}>
-        <img style={{position: 'absolute', right: '0%', top: '0%', width: '150px', margin: '1rem', borderRadius: '1rem'}} src={imgSrc} alt={`image of ${localProps.Type}`} />
+    return localProps ? <Card style={!localProps.Enabled ? {...styles.card, filter: 'brightness(70%)'} : {...styles.card}}>
+        { props.view=='list' ? 
+            <img style={{position: 'absolute', right: '0%', top: '0%', width: '150px', margin: '1rem', borderRadius: '1rem'}} src={imgSrc} alt={`image of ${localProps.Type}`} />
+            :<></>
+        }
         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'end'}}>
-            <h3>{localProps.Title.Text=="" ? "[no title]" : <b>"{localProps.Title.Text}"</b>} &nbsp;</h3>
+            <h3 style={{color: 'rgb(255,140,0)'}}>{localProps.Title.Text=="" ? "[no title]" : <b>"{localProps.Title.Text}"</b>} &nbsp;</h3>
             <h5>&nbsp; Type: <b>"{localProps.Type}"</b></h5>
             
         </div>
@@ -143,7 +148,6 @@ function Node(props) {
                     }
                 </div>
             </>
-            
             : <></>
         }
         <br />

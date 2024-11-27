@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from "react";
-import { Card, Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Card, Container, Row, Col, Button, Form, ToggleButton, ButtonGroup } from "react-bootstrap";
 import { saveAs } from 'file-saver';
 import Node from "./Node"
 import document from '../../assets/document.svg'
 
 function Editor(props) {
     const [hoverFile, setHoverFile] = useState(false);
-
     const [data, setData] = useState(null)
     const [nodes, setNodes] = useState(null)
     const [advanced, setAdvanced] = useState(false)
+    const [filters, setFilters] = useState({'grenade': true, 'position': true, 'text': true, 'line': true, 'spot': true})
+    const [view, setView] = useState('list')
 
     function updateData(updates) {
         var jsonObject = JSON.parse(JSON.stringify(data))
@@ -79,24 +80,54 @@ function Editor(props) {
         <>
             {/* TODO: Add map name to top and maybe a cool pic*/}
             {/* TODO: Add a warning to not use colons, braces, and brackets bc that fucks with the parser */}
-            {/* TODO: Add filters for grenade, spot, line, position, and text */}
-            {/* TODO: Make a col and row system that user can customize */}
             {/* TODO: Add button to delete the entire node from the json file */}
+            <h1 style={{color: 'rgb(255,140,0)'}}>Map: {data['MapName']}</h1>
             <div style={{color: 'white', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
                 <Form.Check type="switch" onChange={()=>setAdvanced((prev)=>!prev)} checked={advanced} label="Advanced"/>
-                <Button variant="danger" onClick={()=>{
-                    if(confirm('Are you sure you want to edit a new file? You will lose your current progress.')) {
-                        setData(null)
-                        setNodes(null)
-                    }
-                }}>Edit New File</Button>
-                <Button variant="success" onClick={()=>{
-                    var string = toKV3(data)
-                    const blob = new Blob([string], {type: 'text'})
-                    saveAs(blob, 'annotations.txt')
-                }}>Save File</Button>
+                <div>
+                    <Button style={{marginRight: '0.5rem'}} variant="danger" onClick={()=>{
+                        if(confirm('Are you sure you want to edit a new file? You will lose your current progress.')) {
+                            setData(null)
+                            setNodes(null)
+                        }
+                    }}>Edit New File</Button>
+                    <Button variant="success" onClick={()=>{
+                        var string = toKV3(data)
+                        const blob = new Blob([string], {type: 'text'})
+                        saveAs(blob, 'annotations.txt')
+                    }}>Save File</Button>
+                </div>
             </div>
-            {Object.keys(nodes).map((key)=><Node key={key} advanced={advanced} k={key} updateData={(e)=>updateData(e)} allNodes={nodes} localProps={nodes[key]}></Node>)}
+            <div style={{display: 'flex', color: 'white'}}>
+                {Object.keys(filters).map((key)=>
+                    <Form.Check key={key} id={key} style={{margin: '1rem'}} type='checkbox' label={key} checked={filters[key]}
+                    onChange={()=>{
+                        setFilters((f)=>{return{...f, [key]: !f[key]}})
+                    }}></Form.Check>
+                )}
+                <p style={{margin: '1rem'}}> | </p>
+                <ButtonGroup style={{margin: '1rem'}}>
+                    <ToggleButton style={{display: 'flex', alignItems: 'center'}} type="radio" variant={'outline-secondary'} checked={view=='list'} onClick={()=>{setView('list')}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                        </svg>
+                    </ToggleButton>
+                    <ToggleButton style={{display: 'flex', alignItems: 'center'}} type="radio" variant={'outline-secondary'} checked={view=='grid'} onClick={()=>{setView('grid')}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5zM1.5 1a.5.5 0 0 0-.5.5V5h4V1zM5 6H1v4h4zm1 4h4V6H6zm-1 1H1v3.5a.5.5 0 0 0 .5.5H5zm1 0v4h4v-4zm5 0v4h3.5a.5.5 0 0 0 .5-.5V11zm0-1h4V6h-4zm0-5h4V1.5a.5.5 0 0 0-.5-.5H11zm-1 0V1H6v4z"/>
+                        </svg>
+                    </ToggleButton>
+                </ButtonGroup>
+            </div>
+            <Row>
+                {Object.keys(nodes).filter((key)=>filters[nodes[key].Type] == true).map((key)=>
+                    nodes[key].SubType=='main' ?
+                    <Col key={key} md={12} lg={view=='grid' ? 6 : 12}>
+                        <Node advanced={advanced} k={key} updateData={(e)=>updateData(e)} allNodes={nodes} localProps={nodes[key]} view={view}></Node>
+                    </Col>
+                    : <></>
+                )}
+            </Row> 
         </>
         }
     </Container>

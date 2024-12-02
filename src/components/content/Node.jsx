@@ -80,7 +80,7 @@ function Node(props) {
             :<></>
         }
         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'end'}}>
-            <h3 style={{color: 'rgb(255,140,30)'}}>{localProps.Title.Text=="" ? "[no title]" : <b>"{localProps.Title.Text}"</b>} &nbsp;</h3>
+            <h3 style={{color: 'rgb(255,140,0)'}}>{localProps.Title.Text=="" ? "[no title]" : <b>"{localProps.Title.Text}"</b>} &nbsp;</h3>
             <h5>&nbsp; Type: <b>"{localProps.Type}"</b></h5>
             
         </div>

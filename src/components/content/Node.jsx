@@ -253,8 +253,7 @@ function Node(props) {
 
 const styles = {
     card: {
-        margin:'1rem', 
-        width: '100%', 
+        margin:'0.5rem', 
         padding: '2rem',
         color: 'white', 
         backgroundColor: 'rgb(31,41,55)', 

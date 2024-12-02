@@ -83,12 +83,12 @@ function Editor(props) {
             {/* TODO: Add a warning to not use colons, braces, and brackets bc that fucks with the parser */}
             {/* TODO: Add button to delete the entire node from the json file */}
             
-            <div style={{position: 'relative', textAlign: 'center', width: '100%', height: '10rem', marginBottom: '2rem'}}>
-                <img style={{width: '100%', height: '10rem', objectFit: 'cover', filter: 'blur(3px) brightness(80%)'}}
+            <div style={{position: 'relative', textAlign: 'center', width: '100%', marginBottom: '2rem'}}>
+                <img style={{width: '100%', height: '10rem', objectFit: 'cover'}}
                 src={`maps/${data['MapName']}.jpeg`} alt={`Image of ${data['MapName']}`} />
-                <h1 style={{position: 'absolute', top: '50%', left: '50%', color: 'white', transform: 'translate(-50%, -50%)', zIndex: '90',
+                {/* <h1 style={{position: 'absolute', top: '50%', left: '50%', color: 'white', transform: 'translate(-50%, -50%)', zIndex: '90',
                     textShadow: '-3px -3px 10px #05152d, 3px -3px 10px #05152d, -3px 3px 10px #05152d, 3px 3px 10px #05152d', fontSize: '5rem'
-                }}>{data['MapName']}</h1>
+                }}><b>{data['MapName']}</b></h1> */}
             </div>
             
             

@@ -70,6 +70,7 @@ function Editor(props) {
     }
 
     return <Container data-bs-theme="dark" style={{justifyItems: 'center'}}>
+        {/* TODO: Add an option to choose file instead of dragover */}
         { data==null ? <div style={ hoverFile ? {...styles.dragBox, ...styles.dragBoxHover} : {...styles.dragBox}} 
         onDragOver={(e)=>{dragover(e)}} onDrop={(e)=>drop(e)} onDragLeave={(e)=>{dragleave(e)}}>
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
@@ -163,8 +164,7 @@ function Editor(props) {
             return JSON.parse(string);
         }
         catch(error) {
-            alert("Error parsing KV3 file, try to avoid using colons ( : ), quotes ( \"\" ), and braces ( {} )")
-            return null
+            return new Error("Error parsing KV3 file. Make sure you have a valid annotation file. Try to avoid using colons ( : ), quotes ( \"\" ), and braces ( {} )") 
         }
     }
 

@@ -10,7 +10,7 @@ function Home () {
     }
 
     return <Container data-bs-theme="dark" style={{color: 'white'}}>
-        <h1>CS2 Nade Guide Helper Tool</h1>
+        <h1>CS2 Nade Guide Helper</h1>
         <p>This is a project to help users easily create nade guide maps. Just visit <a href="/editor">the helper tool</a> if you're 
         ready to start generating console commands for your nade lineups, or keep reading for a step by step guide!</p>
         <h2>Setting up</h2>

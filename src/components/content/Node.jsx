@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Component} from "react";
+import React, {useState, useEffect, Component, memo} from "react";
 import {Card, Form, Accordion} from "react-bootstrap"
 import { SketchPicker } from 'react-color'
 
@@ -262,4 +262,4 @@ const styles = {
         alignItems: 'flex-start'
     }
 }
-export default Node;
+export default memo(Node);

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Component, memo} from "react";
+import React, {useState, useEffect, memo} from "react";
 import {Card, Form, Accordion} from "react-bootstrap"
 import { SketchPicker } from 'react-color'
 

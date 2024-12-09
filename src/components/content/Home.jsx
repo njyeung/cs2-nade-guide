@@ -11,7 +11,7 @@ function Home () {
 
     return <Container data-bs-theme="dark" style={{color: 'white'}}>
         <h1>CS2 Nade Guide Helper</h1>
-        <p>This is a project to help users easily create nade guide maps. Just visit <a href="#/editor">the helper tool</a> if you're 
+        <p>This is a project to help users easily create nade guide maps. Just visit <a href="#/tool">the helper tool</a> if you're 
         ready to start generating console commands for your nade lineups, or keep reading for a step by step guide!</p>
         <h2>Setting up</h2>
         <p>Join a practice map of your choice and paste the following starter commands in your terminal:</p>
@@ -20,7 +20,7 @@ function Home () {
         <p>After your server restarts, paste these commands in the terminal to quickly obtain your grenades:</p>
         <textarea id="command2" style={{width: '100%', height: 'auto'}} contentEditable={false} value="give weapon_ak47;give weapon_smokegrenade;give weapon_molotov;give weapon_flashbang;give weapon_hegrenade;"></textarea>
         <Button onClick={()=>copy('command2')} style={{marginBottom: '0.5rem'}}  variant="success">Click to Copy</Button>
-        <p>Now you're ready to head over to <a href="#/editor">the tool page</a>!</p>
+        <p>Now you're ready to head over to <a href="#/tool">the tool page</a>!</p>
         <h2>Saving your guide</h2>
         <p>In the terminal, type annotation_save followed by the file name you want to save your guide:</p>
         <textarea style={{width: '100%', height: 'auto'}} value="annotation_save [file name]"></textarea>
